@@ -10,3 +10,7 @@ module.exports.errors = (err, req, res, next) => {
         err: err.message || 'something went wrong'
     });
 };
+
+// module.exports = {
+//     ...require('./auth'),   //to spread out every individual handler in auth
+//   };
