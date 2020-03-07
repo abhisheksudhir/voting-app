@@ -1,13 +1,20 @@
+const jwt = require('jsonwebtoken');
+
 const db = require('../models');
 
 exports.register = async (req, res, next) => {
     try {
       const user = await db.User.create(req.body); 
       const {id, username} = user;
+
+      const token = jwt.sign({id, username}, process.env.SECRET);
       
-      res.json({id, username}); //returning only the id and username of the user
+      res.status(201).json({id, username,token}); //returning only the id,token and username of the user with status 201 saying it is created
     } catch (err) {
-      next(err);
+        if(err.code === 11000){
+            err.message = 'Username already taken' ;
+        }
+        next(err);
     }
   };
 
@@ -23,11 +30,15 @@ exports.register = async (req, res, next) => {
         const valid = await user.comparePassword(req.body.password);    //comparing if passwords match. returns true if they match
 
         if(valid) {
-            res.json({id, username,valid});
+            const token = jwt.sign({id, username}, process.env.SECRET);
+            res.json({id, username,token});
           } else {
-            throw new Error('invalid username or password');
+            throw new Error(); 
           }
     } catch (err) {
+        if(err.message!='user does not exist'){
+            err.message = 'Invalid username or password'
+        }            
         next(err);
     }
   };

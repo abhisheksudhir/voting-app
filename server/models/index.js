@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose.set('debug', true);    //to log out every transaction in the database
 mongoose.Promise = global.Promise;  //allows us to use promises with mongoose allowing us to use async javascript through code
-mongoose.connect('mongodb://localhost/vote',
+mongoose.connect(process.env.DATABASE,
 {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
 ); //connecting to database
 
