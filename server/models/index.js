@@ -6,5 +6,5 @@ mongoose.connect('mongodb://localhost/vote',
 {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
 ); //connecting to database
 
-// module.exports.User = require('./user');
-// module.exports.Poll = require('./poll');
+module.exports.User = require('./user');
+module.exports.Poll = require('./poll');
