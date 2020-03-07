@@ -17,6 +17,7 @@ app.use(express.json());    //to parse json
 
 app.get('/', (req, res) => res.json({hello: 'world'}));
 app.use('/api/auth', routes.auth);
+app.use('/api/polls', routes.poll);
 
 // const connection = mongoose.connection;
 // connection.once('open', () => {
