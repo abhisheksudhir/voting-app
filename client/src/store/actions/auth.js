@@ -21,8 +21,8 @@ export const authUser = (path, data) => {
         dispatch(setCurrentUser(user));
         dispatch(removeError());
       } catch (err) {
-        const { error } = err.response.data;
-        dispatch(addError(error));  //dispatch comes from redux thunk and it calls the action we created(addError). dispatch then sends it to redux
+        const error  = err.response.data;
+        dispatch(addError(error.message));  //dispatch comes from redux thunk and it calls the action we created(addError). dispatch then sends it to redux
       }
     };
   };
