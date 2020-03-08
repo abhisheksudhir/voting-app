@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';   //instead of ReactDOM importing only render as only that is used. You can use ReactDOM also, then you will have to write ReactDOM.render instead of just render
 import './index.css';
-import App from './components/App';
+import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
 render(<App />, document.getElementById('root'));
