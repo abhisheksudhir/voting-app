@@ -7,14 +7,14 @@ import AuthPage from '../pages/AuthPage';
 import TestPage from '../pages/TestPage';
 import HomePage from '../pages/HomePage';
 import PollPage from '../pages/PollPage';
+import CreatePollPage from '../pages/CreatePollPage';
 
 const RouteViews = ({auth, getCurrentPoll}) => (
     <main className="container">
         <Switch>
             <Route exact path="/" render={(props) => <HomePage {...props}/>} />
             <Route
-            exact
-            path="/login"
+            exact path="/login"
             render={() => (
             <AuthPage 
                 authType="login" 
@@ -23,8 +23,7 @@ const RouteViews = ({auth, getCurrentPoll}) => (
             )}
             />
             <Route
-                exact
-                path="/register"
+                exact path="/register"
                 render={() => (
                 <AuthPage
                     authType="register"
@@ -33,8 +32,11 @@ const RouteViews = ({auth, getCurrentPoll}) => (
                 )}
             />
             <Route
-                exact
-                path="/poll/:id"
+                exact path="/poll/new"
+                render={() => <CreatePollPage isAuthenticated={auth.isAuthenticated} />}
+            />
+            <Route
+                exact path="/poll/:id"    //: is used so that react knows that id is a variable
                 render={props => (
                 <PollPage getPoll={id => getCurrentPoll(id)} {...props} />
                 )}
