@@ -1,33 +1,52 @@
-import React from 'react';
+import React,{ Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { logout } from '../store/actions';
 
-const NavBar = ({auth, logout}) => (
-    <div>
-        <ul>
-            <li>
-                <Link to='/'>Home</Link>
-            </li>
-            <li>
-                <Link to='/register'>Register</Link>
-            </li>
-            <li>
-                <Link to='/login'>Login</Link>
-            </li>
-            <li>
-                <Link to='/test'>Test</Link>
-            </li>
-            <li>
-                <Link to='/poll/new'>Add new Poll</Link>
-            </li>
-            <li>
-                <a onClick={logout}>logout</a>
-            </li>
+const NavBar = ({ auth, logout }) => (
+    <nav className="navbar">
+      <div className="container">
+        <ul className="navbar-container">
+          <li>
+            <Link className="navbar-brand" to="/">
+              Poll app
+            </Link>
+          </li>
+          {!auth.isAuthenticated && (
+            <Fragment>
+              <li>
+                <Link className="navbar-item" to="/register">
+                  Register
+                </Link>
+              </li>
+              <li>
+                <Link className="navbar-item" to="/login">
+                  Login
+                </Link>
+              </li>
+            </Fragment>
+          )}
+          {auth.isAuthenticated && (
+            <Fragment>
+              <li>
+                <Link className="navbar-item" to="/poll/new">
+                  Create Poll
+                </Link>
+              </li>
+              <li>
+                <a className="navbar-item" onClick={logout}>
+                  Logout
+                </a>
+              </li>
+            </Fragment>
+          )}
         </ul>
-        {auth.isAuthenticated && <p>logged in as {auth.user.username}</p>}
-    </div>
-);
+        {auth.isAuthenticated && (
+          <p className="navbar-user">Logged in as {auth.user.username}</p>
+        )}
+      </div>
+    </nav>
+  );
 
 export default connect(store => ({auth: store.auth}),{ logout })(NavBar);
